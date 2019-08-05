@@ -1,1 +1,1 @@
-worker: superjyman.py
+worker: python superjyman.py
