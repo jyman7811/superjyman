@@ -14,11 +14,11 @@ async def on_ready():
     print(client.user.name)
     while True:
         await client.change_presence(status=discord.Status.online, activity=discord.Game(name="{} 개의 도시, {} 명의 약한 시민들".format(len(client.guilds), len(client.users))))
-        await asyncio.sleep(0.2)
+        await asyncio.sleep(3)
         await client.change_presence(status=discord.Status.idle, activity=discord.Game(name="+도움 을 입력하세요"))
-        await asyncio.sleep(0.2)
+        await asyncio.sleep(3)
         await client.change_presence(status=discord.Status.dnd, activity=discord.Game(name="어디든지 날아가 드립니다"))
-        await asyncio.sleep(0.2)
+        await asyncio.sleep(3)
 
 @client.event
 async def on_message(message):
