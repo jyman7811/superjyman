@@ -270,5 +270,5 @@ async def on_message(message):
         else:
             await message.channel.send("'" + command + "' (은)는 명령어가 아닙니다.")
             
-access_token = os.environ("BOT_TOKEN")
+access_token = os.environ["BOT_TOKEN"]
 client.run(access_token)
