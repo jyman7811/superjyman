@@ -185,7 +185,7 @@ async def on_message(message):
             embed = discord.Embed(title="프로필", description=str(message.author))
             embed.set_image(url=message.author.avatar_url)
             embed.set_footer(text=str(message.author) + " 님의 요청")
-            embed.add_field(name="만약 보이지 않는다면?", value=str(message.author.avatar_url))
+            embed.add_field(name="만약 보이지 않는다면?", value="[[ 사진 보기 ]](" + str(message.author.avatar_url) + ")")
             await message.channel.send(embed=embed)
         elif command[0:2] == "날씨":
             if command[3:5] == "/?":
