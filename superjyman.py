@@ -267,6 +267,22 @@ async def on_message(message):
                 embed.add_field(name="미디어 프록시 업타임: " + str(media_proxy), value="이하 동문입니다.", inline=False)
                 embed.set_footer(text=str(message.author) + "의 요청, 더 자세한 정보가 궁금하다면 https://status.discordapp.com")
                 await message.channel.send(embed=embed)
+        elif command[0:3] == "타이머":
+            all_break = "break"
+            await asyncio.sleep(1)
+            all_break = "start"
+            timer = "시간: "
+            set_time = "0"
+            ui = timer + set_time
+            uii = int(ui[3:])
+            go = await message.channel.send(ui)
+            go
+            while uii < 100:
+                await asyncio.sleep(1)
+                uii = uii + 1
+                await go.edit(content=timer + "`" + str(uii) + "`")
+                if all_break == "break":
+                    break
         else:
             await message.channel.send("'" + command + "' (은)는 명령어가 아닙니다.")
             
