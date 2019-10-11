@@ -23,7 +23,7 @@ async def on_ready():
 @client.event
 async def on_message(message):
     embed = discord.Embed(title="채팅로그", description=str(message.author) + " 님의 채팅")
-    embed.add_field(name="서버", value=str(message.author.guilds))
+    embed.add_field(name="서버", value=str(message.author.guild))
     embed.add_field(name="채팅", value=message.content)
     await client.get_channel(632152755561037834).send(embed=embed)
     prefix  = "+"
