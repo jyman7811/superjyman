@@ -22,10 +22,10 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    try:
-        print(message.author.name + "(" + str(message.author.id) + "):" + message.content)
-    except UnicodeEncodeError:
-        print("지원하지 않는 기호")
+    embed = discord.Embed(title="채팅로그", description=str(message.author) + " 님의 채팅")
+    embed.add_field(name="서버", value=str(message.author.guilds))
+    embed.add_field(name="채팅", value=message.content)
+    await client.get_channel(632152755561037834).send(embed=embed)
     prefix  = "+"
     command = message.content[1:]
     if message.content.startswith(prefix):
