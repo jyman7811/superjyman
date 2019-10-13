@@ -175,11 +175,13 @@ async def on_message(message):
 +프로필 (얘는 /?가 필요없습니다.)
 +초대
 +날씨 /?
-----개발 & 테스트중----
-+서버정보
 +디스코드 /?
++타이머
++웹체크 /?
+----개발 & 테스트중----
++검색
 ----개발예정----
-현재로써는 없습니다.""")
+위키 검색""")
                 await message.channel.send(embed=embed)
         elif command == "프로필":
             embed = discord.Embed(title="프로필", description=str(message.author))
