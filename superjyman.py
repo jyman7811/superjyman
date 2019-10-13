@@ -283,6 +283,47 @@ async def on_message(message):
                 await go.edit(content=timer + "`" + str(uii) + "`")
                 if all_break == "break":
                     break
+        elif command[0:3] == "웹체크":
+            if command[4:6] == "/?":
+                await message.channel.send("""설명:
+    수동으로 원하는 웹사이트의 Html 소스 (요소) 를 가져올수 있습니다.
+    단, 로그인이 필요한 사이트는 접근할수 없습니다.
+    또 출력이 제대로 안될수 있습니다. 한번에 여러개의 소스는 가져올수 없습니다.
+    예) url: https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query=서울날씨, 태그: span class todaytemp""")
+            else:
+                channel = message.channel
+                user = message.author
+                await message.channel.send("URL 을 입력해주세요.")
+                def check(m):
+                    return m.channel == channel
+                try:
+                    m = await client.wait_for('message', timeout=15.0, check=check)
+                except asyncio.TimeoutError:
+                    await channel.send("시간초과로 다시 불러주세요.")
+                else:
+                    url = m.content
+                    await message.channel.send("태그를 입력해주세요. (잘 모르시겠다면 +웹체크 /? 를 입력해주세요.)")
+                    def check(m):
+                        return m.channel == channel and m.author == user
+                    try:
+                        m = await client.wait_for('message', timeout=10.0, check=check)
+                    except asyncio.TimeoutError:
+                        await channel.send("시간초과로 다시 불러주세요.")
+                    else:
+                        tag = m.content
+                        try:
+                            tag1 = tag.split(" ")
+                            tag2 = tag1[0]
+                            tag3 = tag1[1]
+                            tag4 = tag1[2]
+                            response = requests.get(url)
+                            html = response.text
+                            bs = BeautifulSoup(html, "html.parser")
+                            source = bs.find(tag2, {tag3: tag4}).text
+                            embed = discord.Embed(title=url + " 에서 찾은 결과", description=source)
+                            await message.channel.send(embed=embed)
+                        except:
+                            await message.channel.send("입력이 잘못되었습니다.")
         else:
             await message.channel.send("'" + command + "' (은)는 명령어가 아닙니다.")
             
