@@ -5,6 +5,13 @@ import requests
 from bs4 import BeautifulSoup
 import time
 import os
+from PIL import Image
+from PIL import ImageFont
+from PIL import ImageDraw 
+
+img = Image.open("sample_in.jpg")
+draw = ImageDraw.Draw(img)
+font = ImageFont.truetype("jalnan.ttf", 40)
 
 client = discord.Client()
 
@@ -29,7 +36,19 @@ async def on_message(message):
     prefix  = "+"
     command = message.content[1:]
     if message.content.startswith(prefix):
-        if command[0:3] == "메시지":
+        if command[0:3] == "텍스트":
+            def check(m):
+                return m.channel == channel
+            try:
+                m = await client.wait_for('message', timeout=7.0, check=check)
+            except asyncio.TimeoutError:
+                await channel.send("시간초과!")
+            else:
+                await channel.send("알겠습니다.")
+                draw.text((0, 0),"Sample Text",(1,1,1),font=font)
+                img.save('sample-out.jpg')
+                await message.channel.send(file=discord.File("sample-out.jpg"))
+        elif command[0:3] == "메시지":
             if command[4:6] == "/?":
                 await message.channel.send("""
 사용법:
