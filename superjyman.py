@@ -36,15 +36,16 @@ async def on_message(message):
     prefix  = "+"
     command = message.content[1:]
     if message.content.startswith(prefix):
-        if command[0:3] == "텍스트":
+       if command[0:3] == "텍스트":
+            await message.channel.send("텍스트를 입력하세요.")
             def check(m):
                 return m.channel == channel
             try:
                 m = await client.wait_for('message', timeout=7.0, check=check)
             except asyncio.TimeoutError:
-                await channel.send("시간초과!")
+                await message.channel.send("시간초과!")
             else:
-                await channel.send("알겠습니다.")
+                await message.channel.send("알겠습니다.")
                 draw.text((0, 0),"Sample Text",(1,1,1),font=font)
                 img.save('sample-out.jpg')
                 await message.channel.send(file=discord.File("sample-out.jpg"))
